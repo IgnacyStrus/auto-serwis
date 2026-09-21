@@ -4,6 +4,17 @@ COLLATE utf8mb4_unicode_ci;
 
 USE auto_serwis;
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS dostepnosc_pracownikow;
+DROP TABLE IF EXISTS uslugi_pracownikow;
+DROP TABLE IF EXISTS pracownicy;
+DROP TABLE IF EXISTS uslugi;
+DROP TABLE IF EXISTS kategorie_uslug;
+DROP TABLE IF EXISTS uzytkownicy;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE uzytkownicy (
     id_uzytkownika INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     imie VARCHAR(50) NOT NULL,
@@ -37,4 +48,103 @@ CREATE TABLE uslugi (
         REFERENCES kategorie_uslug(id_kategorii)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+CREATE TABLE pracownicy (
+    id_pracownika INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_uzytkownika INT UNSIGNED NOT NULL UNIQUE,
+    opis TEXT,
+    aktywny TINYINT(1) NOT NULL DEFAULT 1,
+
+    CONSTRAINT fk_pracownicy_uzytkownicy
+        FOREIGN KEY (id_uzytkownika)
+        REFERENCES uzytkownicy(id_uzytkownika)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE uslugi_pracownikow (
+    id_pracownika INT UNSIGNED NOT NULL,
+    id_uslugi INT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id_pracownika, id_uslugi),
+
+    CONSTRAINT fk_uslugi_pracownikow_pracownicy
+        FOREIGN KEY (id_pracownika)
+        REFERENCES pracownicy(id_pracownika)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_uslugi_pracownikow_uslugi
+        FOREIGN KEY (id_uslugi)
+        REFERENCES uslugi(id_uslugi)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE dostepnosc_pracownikow (
+    id_dostepnosci INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_pracownika INT UNSIGNED NOT NULL,
+    dzien_tygodnia ENUM(
+        'poniedzialek',
+        'wtorek',
+        'sroda',
+        'czwartek',
+        'piatek',
+        'sobota',
+        'niedziela'
+    ) NOT NULL,
+    godzina_rozpoczecia TIME NOT NULL,
+    godzina_zakonczenia TIME NOT NULL,
+
+    CONSTRAINT fk_dostepnosc_pracownicy
+        FOREIGN KEY (id_pracownika)
+        REFERENCES pracownicy(id_pracownika)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_godziny_pracy
+        CHECK (godzina_rozpoczecia < godzina_zakonczenia)
+) ENGINE=InnoDB;
+CREATE TABLE rezerwacje (
+    id_rezerwacji INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_klienta INT UNSIGNED NOT NULL,
+    id_pracownika INT UNSIGNED NOT NULL,
+    id_uslugi INT UNSIGNED NOT NULL,
+    data_rezerwacji DATE NOT NULL,
+    godzina_rozpoczecia TIME NOT NULL,
+    godzina_zakonczenia TIME NOT NULL,
+    status ENUM(
+        'oczekujaca',
+        'potwierdzona',
+        'zrealizowana',
+        'anulowana'
+    ) NOT NULL DEFAULT 'oczekujaca',
+    komentarz TEXT,
+    data_utworzenia TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    INDEX idx_rezerwacje_pracownik_data (id_pracownika, data_rezerwacji),
+    INDEX idx_rezerwacje_klient (id_klienta),
+    INDEX idx_rezerwacje_status (status),
+
+    CONSTRAINT fk_rezerwacje_klient
+        FOREIGN KEY (id_klienta)
+        REFERENCES uzytkownicy(id_uzytkownika)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_rezerwacje_pracownik
+        FOREIGN KEY (id_pracownika)
+        REFERENCES pracownicy(id_pracownika)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_rezerwacje_usluga
+        FOREIGN KEY (id_uslugi)
+        REFERENCES uslugi(id_uslugi)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_godziny_rezerwacji
+        CHECK (godzina_rozpoczecia < godzina_zakonczenia)
 ) ENGINE=InnoDB;
