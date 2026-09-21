@@ -148,3 +148,34 @@ CREATE TABLE rezerwacje (
     CONSTRAINT chk_godziny_rezerwacji
         CHECK (godzina_rozpoczecia < godzina_zakonczenia)
 ) ENGINE=InnoDB;
+CREATE TABLE historia_statusow_rezerwacji (
+    id_historii INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_rezerwacji INT UNSIGNED NOT NULL,
+    stary_status ENUM(
+        'oczekujaca',
+        'potwierdzona',
+        'zrealizowana',
+        'anulowana'
+    ),
+    nowy_status ENUM(
+        'oczekujaca',
+        'potwierdzona',
+        'zrealizowana',
+        'anulowana'
+    ) NOT NULL,
+    id_uzytkownika INT UNSIGNED NOT NULL,
+    komentarz TEXT,
+    data_zmiany TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_historia_rezerwacja
+        FOREIGN KEY (id_rezerwacji)
+        REFERENCES rezerwacje(id_rezerwacji)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_historia_uzytkownik
+        FOREIGN KEY (id_uzytkownika)
+        REFERENCES uzytkownicy(id_uzytkownika)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE=InnoDB;
