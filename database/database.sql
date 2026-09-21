@@ -383,3 +383,63 @@ INSERT INTO dostepnosc_pracownikow (
 (3, 'sroda', '09:00:00', '17:00:00'),
 (3, 'czwartek', '09:00:00', '17:00:00'),
 (3, 'piatek', '09:00:00', '17:00:00');
+INSERT INTO rezerwacje (
+    id_klienta,
+    id_pracownika,
+    id_uslugi,
+    data_rezerwacji,
+    godzina_rozpoczecia,
+    godzina_zakonczenia,
+    status,
+    komentarz
+) VALUES
+(
+    5,
+    1,
+    1,
+    '2026-11-02',
+    '08:00:00',
+    '09:00:00',
+    'potwierdzona',
+    'Wymiana oleju w samochodzie osobowym.'
+),
+(
+    6,
+    2,
+    3,
+    '2026-11-03',
+    '10:00:00',
+    '11:00:00',
+    'oczekujaca',
+    'Prosze o wymiane kompletu opon.'
+),
+(
+    7,
+    3,
+    7,
+    '2026-11-04',
+    '13:00:00',
+    '14:00:00',
+    'potwierdzona',
+    'Serwis klimatyzacji przed zima.'
+),
+(
+    8,
+    1,
+    5,
+    '2026-09-18',
+    '14:00:00',
+    '14:45:00',
+    'zrealizowana',
+    'Kontrola bledow silnika.'
+),
+(
+    5,
+    2,
+    4,
+    '2026-11-06',
+    '09:00:00',
+    '10:30:00',
+    'anulowana',
+    'Klient anulowal wizyte.'
+);
