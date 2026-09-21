@@ -321,3 +321,42 @@ INSERT INTO uzytkownicy (
     'klient',
     1
 );
+INSERT INTO uslugi (
+    id_kategorii,
+    nazwa,
+    opis,
+    czas_trwania_minuty,
+    cena,
+    aktywna
+) VALUES
+(1, 'Wymiana oleju', 'Wymiana oleju silnikowego oraz filtra oleju.', 60, 180.00, 1),
+(1, 'Wymiana klockow hamulcowych', 'Wymiana przednich lub tylnych klockow hamulcowych.', 90, 350.00, 1),
+(2, 'Wymiana opon', 'Wymiana kompletu czterech opon.', 60, 180.00, 1),
+(2, 'Geometria kol', 'Ustawienie geometrii zawieszenia.', 90, 250.00, 1),
+(3, 'Diagnostyka komputerowa', 'Odczyt bledow i kontrola elektroniki pojazdu.', 45, 150.00, 1),
+(3, 'Kontrola komputerowa pojazdu', 'Rozszerzona kontrola systemow elektronicznych.', 60, 200.00, 1),
+(4, 'Serwis klimatyzacji', 'Kontrola, odgrzybianie i uzupelnienie czynnika.', 60, 220.00, 1),
+(4, 'Ozonowanie klimatyzacji', 'Ozonowanie wnetrza i ukladu klimatyzacji.', 30, 100.00, 1);
+
+INSERT INTO pracownicy (
+    id_uzytkownika,
+    opis,
+    aktywny
+) VALUES
+(2, 'Mechanik specjalizujacy sie w mechanice i diagnostyce.', 1),
+(3, 'Mechanik specjalizujacy sie w oponach i geometrii kol.', 1),
+(4, 'Mechanik specjalizujacy sie w klimatyzacji i elektronice.', 1);
+
+INSERT INTO uslugi_pracownikow (
+    id_pracownika,
+    id_uslugi
+) VALUES
+(1, 1),
+(1, 2),
+(1, 5),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6),
+(3, 7),
+(3, 8);
