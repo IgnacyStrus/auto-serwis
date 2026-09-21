@@ -6,6 +6,9 @@ USE auto_serwis;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS historia_statusow_rezerwacji;
+DROP TABLE IF EXISTS rezerwacje;
+DROP TABLE IF EXISTS dni_wolne_pracownikow;
 DROP TABLE IF EXISTS dostepnosc_pracownikow;
 DROP TABLE IF EXISTS uslugi_pracownikow;
 DROP TABLE IF EXISTS pracownicy;
@@ -178,4 +181,23 @@ CREATE TABLE historia_statusow_rezerwacji (
         REFERENCES uzytkownicy(id_uzytkownika)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
+) ENGINE=InnoDB;
+CREATE TABLE dni_wolne_pracownikow (
+    id_dnia_wolnego INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_pracownika INT UNSIGNED NOT NULL,
+    data_od DATE NOT NULL,
+    data_do DATE NOT NULL,
+    powod VARCHAR(255),
+    data_dodania TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    INDEX idx_dni_wolne_pracownik_data (id_pracownika, data_od),
+
+    CONSTRAINT fk_dni_wolne_pracownicy
+        FOREIGN KEY (id_pracownika)
+        REFERENCES pracownicy(id_pracownika)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_daty_dni_wolne
+        CHECK (data_od <= data_do)
 ) ENGINE=InnoDB;
