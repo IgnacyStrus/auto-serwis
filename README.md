@@ -14,7 +14,7 @@ System obejmuje role klienta, pracownika oraz administratora.
 ## Technologie
 
 - PHP
-- MySQL / MariaDB
+- MySQL
 - HTML5
 - CSS3
 - JavaScript
