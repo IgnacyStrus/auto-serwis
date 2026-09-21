@@ -360,3 +360,26 @@ INSERT INTO uslugi_pracownikow (
 (3, 6),
 (3, 7),
 (3, 8);
+INSERT INTO dostepnosc_pracownikow (
+    id_pracownika,
+    dzien_tygodnia,
+    godzina_rozpoczecia,
+    godzina_zakonczenia
+) VALUES
+(1, 'poniedzialek', '08:00:00', '16:00:00'),
+(1, 'wtorek', '08:00:00', '16:00:00'),
+(1, 'sroda', '08:00:00', '16:00:00'),
+(1, 'czwartek', '08:00:00', '16:00:00'),
+(1, 'piatek', '08:00:00', '16:00:00'),
+
+(2, 'poniedzialek', '08:00:00', '16:00:00'),
+(2, 'wtorek', '08:00:00', '16:00:00'),
+(2, 'sroda', '08:00:00', '16:00:00'),
+(2, 'czwartek', '08:00:00', '16:00:00'),
+(2, 'piatek', '08:00:00', '16:00:00'),
+
+(3, 'poniedzialek', '09:00:00', '17:00:00'),
+(3, 'wtorek', '09:00:00', '17:00:00'),
+(3, 'sroda', '09:00:00', '17:00:00'),
+(3, 'czwartek', '09:00:00', '17:00:00'),
+(3, 'piatek', '09:00:00', '17:00:00');
