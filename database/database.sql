@@ -234,3 +234,90 @@ CREATE TABLE przerwy_pracownikow (
     CONSTRAINT chk_godziny_przerwy
         CHECK (godzina_rozpoczecia < godzina_zakonczenia)
 ) ENGINE=InnoDB;
+INSERT INTO kategorie_uslug (nazwa, opis, aktywna) VALUES
+('Mechanika', 'Naprawy mechaniczne samochodow.', 1),
+('Opony i kola', 'Wymiana opon oraz geometria kol.', 1),
+('Diagnostyka', 'Diagnostyka komputerowa pojazdow.', 1),
+('Klimatyzacja', 'Serwis i naprawa klimatyzacji.', 1);
+
+INSERT INTO uzytkownicy (
+    imie,
+    nazwisko,
+    email,
+    haslo,
+    telefon,
+    rola,
+    aktywny
+) VALUES
+(
+    'Anna',
+    'Nowak',
+    'admin@autoservis.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '500600700',
+    'administrator',
+    1
+),
+(
+    'Jan',
+    'Kowalski',
+    'jan.kowalski@autoservis.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '501601701',
+    'pracownik',
+    1
+),
+(
+    'Piotr',
+    'Wozniak',
+    'piotr.wozniak@autoservis.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '502602702',
+    'pracownik',
+    1
+),
+(
+    'Tomasz',
+    'Zielinski',
+    'tomasz.zielinski@autoservis.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '503603703',
+    'pracownik',
+    1
+),
+(
+    'Marta',
+    'Wisniewska',
+    'marta.wisniewska@email.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '504604704',
+    'klient',
+    1
+),
+(
+    'Adam',
+    'Dabrowski',
+    'adam.dabrowski@email.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '505605705',
+    'klient',
+    1
+),
+(
+    'Karolina',
+    'Maj',
+    'karolina.maj@email.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '506606706',
+    'klient',
+    1
+),
+(
+    'Michal',
+    'Krawczyk',
+    'michal.krawczyk@email.pl',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '507607707',
+    'klient',
+    1
+);
