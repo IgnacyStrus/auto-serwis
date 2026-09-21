@@ -9,6 +9,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS historia_statusow_rezerwacji;
 DROP TABLE IF EXISTS rezerwacje;
 DROP TABLE IF EXISTS dni_wolne_pracownikow;
+DROP TABLE IF EXISTS przerwy_pracownikow;
 DROP TABLE IF EXISTS dostepnosc_pracownikow;
 DROP TABLE IF EXISTS uslugi_pracownikow;
 DROP TABLE IF EXISTS pracownicy;
@@ -200,4 +201,36 @@ CREATE TABLE dni_wolne_pracownikow (
 
     CONSTRAINT chk_daty_dni_wolne
         CHECK (data_od <= data_do)
+) ENGINE=InnoDB;
+CREATE TABLE przerwy_pracownikow (
+    id_przerwy INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_pracownika INT UNSIGNED NOT NULL,
+    dzien_tygodnia ENUM(
+        'poniedzialek',
+        'wtorek',
+        'sroda',
+        'czwartek',
+        'piatek',
+        'sobota',
+        'niedziela'
+    ) NOT NULL,
+    godzina_rozpoczecia TIME NOT NULL,
+    godzina_zakonczenia TIME NOT NULL,
+    opis VARCHAR(255),
+
+    UNIQUE (
+        id_pracownika,
+        dzien_tygodnia,
+        godzina_rozpoczecia,
+        godzina_zakonczenia
+    ),
+
+    CONSTRAINT fk_przerwy_pracownicy
+        FOREIGN KEY (id_pracownika)
+        REFERENCES pracownicy(id_pracownika)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_godziny_przerwy
+        CHECK (godzina_rozpoczecia < godzina_zakonczenia)
 ) ENGINE=InnoDB;
