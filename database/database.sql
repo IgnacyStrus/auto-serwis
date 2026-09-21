@@ -443,3 +443,23 @@ INSERT INTO rezerwacje (
     'anulowana',
     'Klient anulowal wizyte.'
 );
+INSERT INTO historia_statusow_rezerwacji (
+    id_rezerwacji,
+    stary_status,
+    nowy_status,
+    id_uzytkownika,
+    komentarz
+) VALUES
+(1, NULL, 'oczekujaca', 5, 'Klient utworzyl rezerwacje.'),
+(1, 'oczekujaca', 'potwierdzona', 1, 'Administrator potwierdzil rezerwacje.'),
+
+(2, NULL, 'oczekujaca', 6, 'Klient utworzyl rezerwacje.'),
+
+(3, NULL, 'oczekujaca', 7, 'Klient utworzyl rezerwacje.'),
+(3, 'oczekujaca', 'potwierdzona', 1, 'Administrator potwierdzil rezerwacje.'),
+
+(4, NULL, 'oczekujaca', 8, 'Klient utworzyl rezerwacje.'),
+(4, 'oczekujaca', 'zrealizowana', 1, 'Wizyta zostala zrealizowana.'),
+
+(5, NULL, 'oczekujaca', 5, 'Klient utworzyl rezerwacje.'),
+(5, 'oczekujaca', 'anulowana', 5, 'Klient anulowal rezerwacje.');
