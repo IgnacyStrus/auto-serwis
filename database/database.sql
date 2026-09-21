@@ -463,3 +463,27 @@ INSERT INTO historia_statusow_rezerwacji (
 
 (5, NULL, 'oczekujaca', 5, 'Klient utworzyl rezerwacje.'),
 (5, 'oczekujaca', 'anulowana', 5, 'Klient anulowal rezerwacje.');
+INSERT INTO dni_wolne_pracownikow (
+    id_pracownika,
+    data_od,
+    data_do,
+    powod
+) VALUES
+(2, '2026-11-09', '2026-11-11', 'Urlop wypoczynkowy.'),
+(3, '2026-12-24', '2026-12-24', 'Dzien wolny przed swietami.');
+
+INSERT INTO przerwy_pracownikow (
+    id_pracownika,
+    dzien_tygodnia,
+    godzina_rozpoczecia,
+    godzina_zakonczenia,
+    opis
+) VALUES
+(1, 'poniedzialek', '12:00:00', '12:30:00', 'Przerwa obiadowa.'),
+(1, 'sroda', '12:00:00', '12:30:00', 'Przerwa obiadowa.'),
+
+(2, 'wtorek', '11:30:00', '12:00:00', 'Przerwa obiadowa.'),
+(2, 'czwartek', '11:30:00', '12:00:00', 'Przerwa obiadowa.'),
+
+(3, 'poniedzialek', '13:00:00', '13:30:00', 'Przerwa obiadowa.'),
+(3, 'piatek', '13:00:00', '13:30:00', 'Przerwa obiadowa.');
