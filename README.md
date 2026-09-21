@@ -2,7 +2,7 @@
 
 ## Autorzy
 
-Stefaniuk Gabbriel
+Stefaniuk Gabriel
 Ignacy Strus
 
 ## Opis projektu
