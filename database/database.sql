@@ -487,3 +487,10 @@ INSERT INTO przerwy_pracownikow (
 
 (3, 'poniedzialek', '13:00:00', '13:30:00', 'Przerwa obiadowa.'),
 (3, 'piatek', '13:00:00', '13:30:00', 'Przerwa obiadowa.');
+CREATE TABLE proby_logowania (
+    id_proby INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL,
+    adres_ip VARCHAR(45) NOT NULL,
+    data_proby TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_proby_email_ip_data (email, adres_ip, data_proby)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
