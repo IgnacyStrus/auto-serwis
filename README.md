@@ -65,3 +65,6 @@ includes/
    ```text
    http://localhost/auto-serwis/
    ```
+## Logowanie
+1. Konta testowe (dane z database.sql): wszystkie mają hasło Test1234!
+Administrator: admin@autoservis.pl
