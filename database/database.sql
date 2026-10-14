@@ -253,7 +253,7 @@ INSERT INTO uzytkownicy (
     'Anna',
     'Nowak',
     'admin@autoservis.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '500600700',
     'administrator',
     1
@@ -262,7 +262,7 @@ INSERT INTO uzytkownicy (
     'Jan',
     'Kowalski',
     'jan.kowalski@autoservis.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '501601701',
     'pracownik',
     1
@@ -271,7 +271,7 @@ INSERT INTO uzytkownicy (
     'Piotr',
     'Wozniak',
     'piotr.wozniak@autoservis.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '502602702',
     'pracownik',
     1
@@ -280,7 +280,7 @@ INSERT INTO uzytkownicy (
     'Tomasz',
     'Zielinski',
     'tomasz.zielinski@autoservis.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '503603703',
     'pracownik',
     1
@@ -289,7 +289,7 @@ INSERT INTO uzytkownicy (
     'Marta',
     'Wisniewska',
     'marta.wisniewska@email.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '504604704',
     'klient',
     1
@@ -298,7 +298,7 @@ INSERT INTO uzytkownicy (
     'Adam',
     'Dabrowski',
     'adam.dabrowski@email.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '505605705',
     'klient',
     1
@@ -307,7 +307,7 @@ INSERT INTO uzytkownicy (
     'Karolina',
     'Maj',
     'karolina.maj@email.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '506606706',
     'klient',
     1
@@ -316,7 +316,7 @@ INSERT INTO uzytkownicy (
     'Michal',
     'Krawczyk',
     'michal.krawczyk@email.pl',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.',
+    '$2y$10$dBcedvDgVWiItHwLbUJhf.cj42VeTMvLvLNmf6e/T04thX7tHFvhm',
     '507607707',
     'klient',
     1
@@ -487,3 +487,10 @@ INSERT INTO przerwy_pracownikow (
 
 (3, 'poniedzialek', '13:00:00', '13:30:00', 'Przerwa obiadowa.'),
 (3, 'piatek', '13:00:00', '13:30:00', 'Przerwa obiadowa.');
+CREATE TABLE proby_logowania (
+    id_proby INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL,
+    adres_ip VARCHAR(45) NOT NULL,
+    data_proby TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_proby_email_ip_data (email, adres_ip, data_proby)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
