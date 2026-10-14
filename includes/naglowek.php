@@ -1,5 +1,5 @@
 <?php
-require_once DIR . '/auth.php';
+require_once __DIR__ . '/auth.php';
 $tytul = $tytul ?? 'Auto Serwis';
 ?>
 <!DOCTYPE html>
