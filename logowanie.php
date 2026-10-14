@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/includes/auth.php';
-require_once __DIR__ . '/includes/limit_logowan.php';
+require_once 'includes/auth.php';
+require_once 'includes/csrf.php';
+require_once 'includes/limit_logowan.php';
 
 if (czy_zalogowany()) {
     header('Location: ' . adres_panelu($_SESSION['rola']));
@@ -15,7 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $haslo = is_string($_POST['haslo'] ?? null) ? $_POST['haslo'] : '';
     $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 
-    if ($email === '' || $haslo === '') {
+    if (!csrf_sprawdz()) {
+        $blad = 'Formularz wygasł. Odśwież stronę i spróbuj ponownie.';
+    } elseif ($email === '' || $haslo === '') {
         $blad = 'Podaj e-mail i hasło.';
     } elseif (czy_zablokowany($email, $ip)) {
         $blad = 'Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za ' . OKNO_BLOKADY_MIN . ' minut.';
@@ -37,16 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $blad = 'Nieprawidłowy e-mail lub hasło.';
     }
 }
+
+$tytul = 'Logowanie';
+require 'includes/naglowek.php';
 ?>
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Logowanie - Auto Serwis</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
     <h1>Logowanie</h1>
 
     <?php if ($blad !== ''): ?>
@@ -54,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="post" action="logowanie.php">
+        <?= csrf_pole() ?>
+
         <label for="email">E-mail</label>
         <input type="email" id="email" name="email" value="<?= e($email) ?>" required>
 
@@ -64,5 +63,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
     <p>Nie masz konta? <a href="rejestracja.php">Zarejestruj się</a></p>
-</body>
-</html>
+<?php require 'includes/stopka.php'; ?>

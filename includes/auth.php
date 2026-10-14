@@ -57,7 +57,13 @@ function wyloguj(): void
 
 function adres_panelu(string $rola): string
 {
-    return BAZA_URL . '/' . $rola . '/index.php';
+    $foldery = [
+        'administrator' => 'admin',
+        'pracownik' => 'pracownik',
+        'klient' => 'klient',
+    ];
+
+    return BAZA_URL . '/' . ($foldery[$rola] ?? 'klient') . '/index.php';
 }
 
 function wymagaj_logowania(): void
