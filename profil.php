@@ -40,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dane[$pole] = is_string($_POST[$pole] ?? null) ? trim($_POST[$pole]) : '';
         }
 
-        if ($dane['imie'] === '' || mb_strlen($dane['imie']) > 50) {
-            $bledy_profil[] = 'Podaj imię (maksymalnie 50 znaków).';
+        if (!preg_match('/^\p{L}+([ \'-]\p{L}+)*$/u', $dane['imie']) || mb_strlen($dane['imie']) > 50) {
+            $bledy_profil[] = 'Podaj imię (same litery, maksymalnie 50 znaków).';
         }
-        if ($dane['nazwisko'] === '' || mb_strlen($dane['nazwisko']) > 80) {
-            $bledy_profil[] = 'Podaj nazwisko (maksymalnie 80 znaków).';
+        if (!preg_match('/^\p{L}+([ \'-]\p{L}+)*$/u', $dane['nazwisko']) || mb_strlen($dane['nazwisko']) > 80) {
+            $bledy_profil[] = 'Podaj nazwisko (same litery, maksymalnie 80 znaków).';
         }
         if (!filter_var($dane['email'], FILTER_VALIDATE_EMAIL) || mb_strlen($dane['email']) > 150) {
             $bledy_profil[] = 'Podaj poprawny adres e-mail.';
         }
-        if (!preg_match('/^[0-9+() -]{7,20}$/', $dane['telefon'])) {
-            $bledy_profil[] = 'Podaj poprawny numer telefonu (cyfry, 7-20 znaków).';
+        if (!preg_match('/^\+?[0-9 -]{7,20}$/', $dane['telefon'])) {
+            $bledy_profil[] = 'Podaj poprawny numer telefonu (tylko cyfry, opcjonalnie + na początku, 7-20 znaków).';
         }
 
         if (!$bledy_profil) {
@@ -141,7 +141,7 @@ require 'includes/naglowek.php';
         <input type="email" id="email" name="email" value="<?= e($dane['email']) ?>" maxlength="150" required>
 
         <label for="telefon">Telefon</label>
-        <input type="tel" id="telefon" name="telefon" value="<?= e($dane['telefon']) ?>" maxlength="20" required>
+        <input type="tel" id="telefon" name="telefon" value="<?= e($dane['telefon']) ?>" maxlength="20" pattern="\+?[0-9 \-]{7,20}" title="Tylko cyfry, opcjonalnie + na początku" required>
 
         <button type="submit">Zapisz zmiany</button>
     </form>

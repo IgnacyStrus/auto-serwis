@@ -20,17 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_sprawdz()) {
         $bledy[] = 'Formularz wygasł. Odśwież stronę i spróbuj ponownie.';
     }
-    if ($dane['imie'] === '' || mb_strlen($dane['imie']) > 50) {
-        $bledy[] = 'Podaj imię (maksymalnie 50 znaków).';
+    if (!preg_match('/^\p{L}+([ \'-]\p{L}+)*$/u', $dane['imie']) || mb_strlen($dane['imie']) > 50) {
+        $bledy[] = 'Podaj imię (same litery, maksymalnie 50 znaków).';
     }
-    if ($dane['nazwisko'] === '' || mb_strlen($dane['nazwisko']) > 80) {
-        $bledy[] = 'Podaj nazwisko (maksymalnie 80 znaków).';
+    if (!preg_match('/^\p{L}+([ \'-]\p{L}+)*$/u', $dane['nazwisko']) || mb_strlen($dane['nazwisko']) > 80) {
+        $bledy[] = 'Podaj nazwisko (same litery, maksymalnie 80 znaków).';
     }
     if (!filter_var($dane['email'], FILTER_VALIDATE_EMAIL) || mb_strlen($dane['email']) > 150) {
         $bledy[] = 'Podaj poprawny adres e-mail.';
     }
-    if (!preg_match('/^[0-9+() -]{7,20}$/', $dane['telefon'])) {
-        $bledy[] = 'Podaj poprawny numer telefonu (cyfry, 7-20 znaków).';
+    if (!preg_match('/^\+?[0-9 -]{7,20}$/', $dane['telefon'])) {
+        $bledy[] = 'Podaj poprawny numer telefonu (tylko cyfry, opcjonalnie + na początku, 7-20 znaków).';
     }
     if (strlen($haslo) < 8 || strlen($haslo) > 72) {
         $bledy[] = 'Hasło musi mieć od 8 do 72 znaków.';
@@ -99,7 +99,7 @@ require 'includes/naglowek.php';
         <input type="email" id="email" name="email" value="<?= e($dane['email']) ?>" maxlength="150" required>
 
         <label for="telefon">Telefon</label>
-        <input type="tel" id="telefon" name="telefon" value="<?= e($dane['telefon']) ?>" maxlength="20" required>
+        <input type="tel" id="telefon" name="telefon" value="<?= e($dane['telefon']) ?>" maxlength="20" pattern="\+?[0-9 \-]{7,20}" title="Tylko cyfry, opcjonalnie + na początku" required>
 
         <label for="haslo">Hasło (min. 8 znaków)</label>
         <input type="password" id="haslo" name="haslo" minlength="8" maxlength="72" required>
