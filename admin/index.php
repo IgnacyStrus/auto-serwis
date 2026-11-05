@@ -1,10 +1,7 @@
 <?php
-require_once '../includes/auth.php';
-wymagaj_roli('administrator');
-
-$tytul = 'Panel admina';
-require '../includes/naglowek.php';
+$tytul = 'Dashboard';
+require_once __DIR__ . '/../includes/admin_naglowek.php';
 ?>
-    <h1>Panel admina</h1>
-    <p>Witaj, <?= e($_SESSION['imie']) ?>!</p>
-<?php require '../includes/stopka.php'; ?>
+<h1>Panel administratora</h1>
+<p>Witaj, <?= e($_SESSION['imie']) ?>.</p>
+<?php require_once __DIR__ . '/../includes/stopka.php'; ?>
