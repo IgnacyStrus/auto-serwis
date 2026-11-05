@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/csrf.php';
 $tytul = $tytul ?? 'Auto Serwis';
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,10 @@ $tytul = $tytul ?? 'Auto Serwis';
         <?php if (czy_zalogowany()): ?>
             <a href="<?= e(adres_panelu($_SESSION['rola'])) ?>">Panel</a>
             <a href="<?= e(BAZA_URL) ?>/profil.php">Profil</a>
-            <a href="<?= e(BAZA_URL) ?>/wylogowanie.php">Wyloguj (<?= e($_SESSION['imie']) ?>)</a>
+               <form method="post" action="<?= e(BAZA_URL) ?>/wylogowanie.php" class="form-wyloguj">
+       <?= csrf_pole() ?>
+       <button type="submit" class="przycisk-wyloguj">Wyloguj (<?= e($_SESSION['imie']) ?>)</button>
+   </form>
         <?php else: ?>
             <a href="<?= e(BAZA_URL) ?>/logowanie.php">Logowanie</a>
             <a href="<?= e(BAZA_URL) ?>/rejestracja.php">Rejestracja</a>
